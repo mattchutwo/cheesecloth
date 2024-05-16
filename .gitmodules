@@ -1,9 +1,6 @@
 [submodule "witness-checker"]
 	path = witness-checker
 	url = https://github.com/GaloisInc/witness-checker
-[submodule "MicroRAM"]
-	path = MicroRAM
-	url = https://github.com/GaloisInc/MicroRAM
 [submodule "grit"]
 	path = grit
 	url = https://github.com/GaloisInc/grit
@@ -22,3 +19,6 @@
 [submodule "openssl-driver"]
 	path = openssl-driver
 	url = https://github.com/GaloisInc/openssl-driver
+[submodule "MicroRAM"]
+	path = MicroRAM
+	url = git@github.com:mattchutwo/MicroRAM.git
