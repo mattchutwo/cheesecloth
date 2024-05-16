@@ -22,7 +22,11 @@ RUN apt-get install -y \
     cmake \
     less \
     vim \
-    wget
+    wget \
+    prelink \
+    libtinfo-dev \
+    sudo 
+
 RUN apt-add-repository universe
 RUN apt-get update
 
@@ -48,6 +52,12 @@ RUN curl -sSL https://get.haskellstack.org/ | /bin/sh
 ENV PATH="/root/.local/bin:${PATH}"
 RUN apt-get install time
 
+# Install llvm9
+RUN wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key| sudo apt-key add -
+RUN wget https://apt.llvm.org/llvm.sh
+RUN chmod +x llvm.sh
+RUN sudo ./llvm.sh 9
+
 COPY swanky /root/swanky
 COPY cheesecloth /root/cheesecloth
 WORKDIR /root/cheesecloth
@@ -55,6 +65,6 @@ WORKDIR /root/cheesecloth
 RUN rustup install 1.69.0-x86_64-unknown-linux-gnu
 RUN rustup default 1.69.0-x86_64-unknown-linux-gnu
 RUN rm rust-toolchain
+RUN execstack -c ~/.rustup/toolchains/1.69.0-x86_64-unknown-linux-gnu/lib/libLLVM-15-rust-1.69.0-stable.so
 RUN ./scripts/build_witness_checker
 RUN ./scripts/build_microram
-
